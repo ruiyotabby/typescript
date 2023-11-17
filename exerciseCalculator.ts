@@ -8,7 +8,27 @@ interface Result {
   average: number;
 }
 
-export const calculateExercise = (dailyExercises: number[], target: number): object => {
+interface exerciseValues {
+  value1: number,
+  value2: number[]
+}
+
+const parseArguments = (args: string[]): exerciseValues => {
+  if (args.length <= 3) throw new Error('Not enough arguments')
+
+  const values: string[] = args.slice(3)
+
+  if (isNaN(Number(args[2])) || !values.every(value => !isNaN(Number(value)))) {
+    throw new Error("provided values were not numbers");
+  } else {
+    return {
+      value1: Number(args[2]),
+      value2: args.splice(3).map(i => Number(i))
+    }
+  }
+}
+
+export const calculateExercise = (dailyExercises: number[], target: number): Result => {
   let result : Result = {
     target,
     periodLength: dailyExercises.length,
@@ -24,4 +44,14 @@ export const calculateExercise = (dailyExercises: number[], target: number): obj
   return result
 }
 
-console.log(calculateExercise([3, 0, 2, 4.5, 0, 3, 1], 2))
+try {
+  const { value1, value2 } = parseArguments(process.argv)
+  console.log(calculateExercise(value2, value1))
+} catch (error: unknown) {
+  let errorMessage: string = 'Something bad happened.'
+  if (error instanceof Error) {
+    errorMessage += ' Error: ' + error.message
+  }
+  console.log(errorMessage);
+
+}
