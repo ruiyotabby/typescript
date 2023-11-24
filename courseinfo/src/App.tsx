@@ -23,7 +23,16 @@ const App = () => {
 		kind: 'background';
 	}
 
-	type CoursePart = CoursePartBasic | CoursePartGroup | CoursePartBackground;
+	interface CoursePartSpecial extends CourseDescription {
+		requirements: string[];
+		kind: 'special';
+	}
+
+	type CoursePart =
+		| CoursePartBasic
+		| CoursePartGroup
+		| CoursePartBackground
+		| CoursePartSpecial;
 
 	const courseParts: CoursePart[] = [
 		{
@@ -58,6 +67,13 @@ const App = () => {
 			description: 'a hard part',
 			kind: 'basic',
 		},
+		{
+			name: 'Backend development',
+			exerciseCount: 21,
+			description: 'Typing the backend',
+			requirements: ['nodejs', 'jest'],
+			kind: 'special',
+		},
 	];
 
 	const totalExercises = courseParts.reduce(
@@ -81,10 +97,11 @@ const Header = ({ courseName }: { courseName: string }) => (
 interface CoursePartProp {
 	name: string;
 	exerciseCount: number;
-	kind: 'basic' | 'background' | 'group';
+	kind: 'basic' | 'background' | 'group' | 'special';
 	description?: string;
 	groupProjectCount?: number;
 	backgroundMaterial?: string;
+	requirements?: string[];
 }
 
 const Content = ({ courseParts }: { courseParts: CoursePartProp[] }) => {
@@ -111,6 +128,14 @@ const Part = ({ coursePart }: { coursePart: CoursePartProp }) => {
 				<>
 					<em>{coursePart.description}</em>
 					<div>submit to {coursePart.backgroundMaterial}</div>
+				</>
+			);
+			break;
+		case 'special':
+			course = (
+				<>
+					<em>{coursePart.description}</em>
+					<div>required skills: {coursePart.requirements!.join(', ')}</div>
 				</>
 			);
 			break;
