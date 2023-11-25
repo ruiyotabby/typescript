@@ -47,21 +47,72 @@ function App() {
 					onChange={({ target }) => setDate(target.value)}
 				/>
 				<br />
-				<label htmlFor='visibility'>visibility: </label>
+				<label>visibility: </label>
 				<input
-					id='visibility'
-					type='tesxt'
+					type='radio'
 					value={visibility}
-					onChange={({ target }) => setVisibility(target.value)}
+					name='visibility'
+					onChange={() => setVisibility('great')}
 				/>
+				Great
+				<input
+					type='radio'
+					value={visibility}
+					name='visibility'
+					onChange={() => setVisibility('good')}
+				/>
+				Good
+				<input
+					type='radio'
+					value={visibility}
+					name='visibility'
+					onChange={() => setVisibility('ok')}
+				/>
+				Ok
+				<input
+					type='radio'
+					value={visibility}
+					name='visibility'
+					onChange={() => setVisibility('poor')}
+				/>
+				Poor
 				<br />
 				<label htmlFor='weather'>weather: </label>
 				<input
-					id='weather'
-					type='text'
+					type='radio'
 					value={weather}
-					onChange={({ target }) => setWeather(target.value)}
+					name='weather'
+					onChange={() => setWeather('sunny')}
 				/>
+				Sunny
+				<input
+					type='radio'
+					value={weather}
+					name='weather'
+					onChange={() => setWeather('rainy')}
+				/>
+				Rainy
+				<input
+					type='radio'
+					value={weather}
+					name='weather'
+					onChange={() => setWeather('cloudy')}
+				/>
+				Cloudy
+				<input
+					type='radio'
+					value={weather}
+					name='weather'
+					onChange={() => setWeather('stormy')}
+				/>
+				Stormy
+				<input
+					type='radio'
+					value={weather}
+					name='weather'
+					onChange={() => setWeather('windy')}
+				/>
+				Windy
 				<br />
 				<label htmlFor='comment'>comment: </label>
 				<input
