@@ -3,4 +3,7 @@ export interface FlightDiary {
 	date: string;
 	weather: string;
 	visibility: string;
+	comment?: string;
 }
+
+export type NewDiary = Omit<FlightDiary, 'id'>;
